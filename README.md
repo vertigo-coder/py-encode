@@ -20,7 +20,7 @@ python3 -m b64enc <input_file> -o <output_file>
 ```bash
 python3 -m decrypt <input_file> <output_file> -p <password>
 ```
-**Decompress a file:**
+**Decompress a file (no encryption):**
 ```bash
 python3 -m decrypt <input_file> <output_file> 
 ```
