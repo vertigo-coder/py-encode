@@ -55,23 +55,19 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("input_file", help="Path to the text file containing the base64 string")
     parser.add_argument("output_file", help="Path to save the decoded file")
-    parser.add_argument("-p", "--password", required=True, help="Password for decryption")
+    parser.add_argument("-p", "--password", help="Password for decryption")
     args = parser.parse_args()
     
     base64_string = read_text_file(args.input_file)
-    if base64_string is None:
-        exit(1)
-    
-    encrypted_data = base64.b64decode(base64_string)
-    key = derive_key_from_password(args.password)
-    
-    decrypted_data = aes_decrypt(encrypted_data, key)
-    if decrypted_data is None:
-        exit(1)
-    
-    decompressed_data = decompress_bytes(decrypted_data)
-    if decompressed_data is None:
-        exit(1)
+
+    if args.password:
+        encrypted_data = base64.b64decode(base64_string)
+        key = derive_key_from_password(args.password)
+        decrypted_data = aes_decrypt(encrypted_data, key)
+        decompressed_data = decompress_bytes(decrypted_data)
+    else:
+        compressed_data = base64.b64decode(base64_string)
+        decompressed_data = decompress_bytes(compressed_data)
     
     if write_binary_to_file(decompressed_data, args.output_file):
         print(f"File successfully saved to {args.output_file}")
