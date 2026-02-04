@@ -10,9 +10,18 @@ pip install pycryptodome
 ## Usage
 **Encrypt a file:**
 ```bash
-python b64enc.py <input_file> -e <password> -o <output_file>
+python3 -m b64enc <input_file> -e <password> -o <output_file>
 ```
 **Compress and encode a file (no encryption):**
 ```bash
-python b64enc.py <input_file> -o <output_file>
+python3 -m b64enc <input_file> -o <output_file>
 ```
+**Decompress and decrypt a file:**
+```bash
+python3 -m decrypt <input_file> <output_file> -p <password>
+```
+**Decompress a file:**
+```bash
+python3 -m decrypt <input_file> <output_file> 
+```
+
